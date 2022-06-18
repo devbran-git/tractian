@@ -1,15 +1,8 @@
-import { Typography } from 'antd';
+import './App.css';
+import AppRoutes from './routes/app.routes';
 
 const App: React.FC = () => {
-  const { Title } = Typography;
-
-  return (
-    <>
-      <Title style={{ marginBottom: 0 }} level={4}>
-        Tractian Challenge
-      </Title>
-    </>
-  );
+  return <AppRoutes />;
 };
 
 export default App;
