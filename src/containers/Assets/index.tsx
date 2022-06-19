@@ -1,7 +1,13 @@
-import React from 'react';
+import BottomTab from '../../components/BottomTab';
 
-const Assets = () => {
-  return <h1>Ativos</h1>;
+const Assets: React.FC = () => {
+  return (
+    <div className='container'>
+      <h1>ATIVOS</h1>
+
+      <BottomTab />
+    </div>
+  );
 };
 
 export default Assets;

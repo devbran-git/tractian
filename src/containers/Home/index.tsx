@@ -1,7 +1,19 @@
-import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import BottomTab from '../../components/BottomTab';
 
 const Home = () => {
-  return <h1>Hello code!</h1>;
+  const testId = '111';
+
+  return (
+    <div className='container'>
+      <Link to={`/ativo-${testId}`}>
+        <h1>UNIDADES</h1>
+      </Link>
+
+      <BottomTab />
+      <Outlet />
+    </div>
+  );
 };
 
 export default Home;
