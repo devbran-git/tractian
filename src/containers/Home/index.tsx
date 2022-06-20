@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import BottomTab from '../../components/BottomTab';
+
 import { AxiosResponse } from 'axios';
 
 import { api } from '../../services/api';
@@ -14,17 +15,17 @@ const Home = () => {
   const [selectedUnit, setSelectedUnit] = useState(1);
 
   const getUnitsData = async () => {
-    let response = await api.get('units');
+    const unitResponse = await api.get('units');
 
-    setUnits(response?.data);
+    setUnits(unitResponse?.data);
   };
 
   const getAssetsData = async () => {
-    let response: AxiosResponse<Asset[]> = await api.get('assets');
+    const assetsResponse: AxiosResponse<Asset[]> = await api.get('assets');
 
-    let totalAssets = response?.data;
+    const totalAssets = assetsResponse?.data;
 
-    let initialAssetsList = totalAssets.filter(
+    const initialAssetsList = totalAssets.filter(
       (asset) => asset.unitId === selectedUnit
     );
 

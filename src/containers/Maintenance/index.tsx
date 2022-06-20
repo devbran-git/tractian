@@ -1,7 +1,9 @@
-import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import BottomTab from '../../components/BottomTab';
+
+import { AxiosResponse } from 'axios';
+
 import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
@@ -18,38 +20,36 @@ const Maintenance = () => {
     setUnits(response?.data);
   };
 
-  const getAssetsData = async () => {
-    let response: AxiosResponse<Asset[]> = await api.get('assets');
+  const getToMaintenanceAssetsData = async () => {
+    const response: AxiosResponse<Asset[]> = await api.get('assets');
 
-    let totalAssets = response?.data;
+    const totalAssets = response?.data;
 
-    const inDowntime = totalAssets.filter(
-      (asset) => asset?.status === 'inDowntime'
+    const toMaintenanceAssets = totalAssets.filter(
+      (toMaintenance) =>
+        toMaintenance.status === 'inDowntime' ||
+        toMaintenance.status === 'inAlert'
     );
-    const inAlertList = totalAssets.filter(
-      (asset) => asset?.status === 'inAlert'
+
+    const unitAssets = toMaintenanceAssets.filter(
+      (asset) => asset.unitId === selectedUnit
     );
 
-    const initialAssetsList = [...inDowntime, ...inAlertList];
-
-    setAssets(totalAssets);
-    setAssetsToShow(initialAssetsList);
+    setAssets(toMaintenanceAssets);
+    setAssetsToShow(unitAssets);
   };
 
   const onSelectUnit = () => {
-    const inDowntime = assets.filter((asset) => asset?.status === 'inDowntime');
-    const inAlertList = assets.filter((asset) => asset?.status === 'inAlert');
+    const newAssetsList = assets.filter(
+      (asset) => asset.unitId === selectedUnit
+    );
 
-    const newAssetsList = [...inDowntime, ...inAlertList];
-
-    console.log('O que tem no console --->', newAssetsList);
-
-    setAssetsToShow(inAlertList);
+    setAssetsToShow(newAssetsList);
   };
 
   useEffect(() => {
     getUnitsData();
-    getAssetsData();
+    getToMaintenanceAssetsData();
   }, []);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Maintenance = () => {
       </div>
 
       {assetsToShow?.map((asset, index) => (
-        <Link key={index} to={`/ativo-${asset.id}`}>
+        <Link key={index} to={`/manutencao-${asset.id}`}>
           <p>{asset.name}</p>
         </Link>
       ))}
