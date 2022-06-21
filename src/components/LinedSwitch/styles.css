@@ -1,0 +1,54 @@
+.lined-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+}
+
+.lined-switch > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  align-items: center;
+}
+
+.label {
+  margin-bottom: 4px;
+}
+
+.active-label {
+  color: var(--dark);
+}
+
+.inactive-label {
+  color: var(--gray);
+}
+
+.line {
+  position: absolute;
+
+  width: 100%;
+
+  border-radius: 1px;
+}
+
+.active-line {
+  bottom: 0;
+
+  height: 3px;
+
+  background-color: var(--dark);
+}
+
+.inactive-line {
+  bottom: 1px;
+
+  height: 1px;
+
+  background-color: var(--gray);
+}

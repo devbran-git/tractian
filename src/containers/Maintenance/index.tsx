@@ -7,6 +7,8 @@ import { AxiosResponse } from 'axios';
 import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
+import Layout from '../../components/Layout';
+import LinedSwitch from '../../components/LinedSwitch';
 
 const Maintenance = () => {
   const [units, setUnits] = useState<Unit[]>([]);
@@ -57,19 +59,12 @@ const Maintenance = () => {
   }, [selectedUnit]);
 
   return (
-    <div style={{ flexDirection: 'column' }} className='container'>
-      <div
-        style={{
-          display: 'flex',
-          width: '100%',
-          justifyContent: 'space-evenly',
-        }}>
-        {units.map((unit, index) => (
-          <p key={index} onClick={() => setSelectedUnit(index + 1)}>
-            {unit?.name}
-          </p>
-        ))}
-      </div>
+    <Layout headerTitle='Manutenção'>
+      <LinedSwitch
+        units={units}
+        selectedUnit={selectedUnit}
+        setSelectedUnit={setSelectedUnit}
+      />
 
       {assetsToShow?.map((asset, index) => (
         <Link key={index} to={`/manutencao-${asset.id}`}>
@@ -79,7 +74,7 @@ const Maintenance = () => {
 
       <BottomTab />
       <Outlet />
-    </div>
+    </Layout>
   );
 };
 

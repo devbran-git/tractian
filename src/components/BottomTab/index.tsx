@@ -1,5 +1,12 @@
+import './style.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
+import {
+  BarChartOutlined,
+  HomeOutlined,
+  ToolOutlined,
+} from '@ant-design/icons';
 
 const BottomTab: React.FC = () => {
   return (
@@ -10,15 +17,16 @@ const BottomTab: React.FC = () => {
           isActive ? 'active-style' : 'inactive-style'
         }
         to='/'>
-        Unidades
+        <HomeOutlined className='bottom-tab-icon' />
       </NavLink>
+
       <NavLink
         style={{ textDecoration: 'none' }}
         className={({ isActive }) =>
           isActive ? 'active-style' : 'inactive-style'
         }
         to='/manutencao'>
-        Manutenção
+        <ToolOutlined className='bottom-tab-icon' />
       </NavLink>
       <NavLink
         style={{ textDecoration: 'none' }}
@@ -26,7 +34,7 @@ const BottomTab: React.FC = () => {
           isActive ? 'active-style' : 'inactive-style'
         }
         to='/ativos'>
-        Ativos
+        <BarChartOutlined className='bottom-tab-icon' />
       </NavLink>
     </nav>
   );
