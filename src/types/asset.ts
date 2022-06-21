@@ -16,6 +16,6 @@ export interface Asset {
     power?: 1.5;
     rpm?: number | null;
   };
-  status: string;
+  status: 'inDowntime' | 'inAlert' | 'inOperation';
   unitId: number;
 }

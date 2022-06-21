@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import BottomTab from '../../components/BottomTab';
 
 import { AxiosResponse } from 'axios';
 
+import Layout from '../../components/Layout';
+import LinedSwitch from '../../components/LinedSwitch';
+import AssetMainCard from '../../components/AssetMainCard';
+
 import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
-import Layout from '../../components/Layout';
-import LinedSwitch from '../../components/LinedSwitch';
 
 const Maintenance = () => {
   const [units, setUnits] = useState<Unit[]>([]);
@@ -66,11 +68,11 @@ const Maintenance = () => {
         setSelectedUnit={setSelectedUnit}
       />
 
-      {assetsToShow?.map((asset, index) => (
-        <Link key={index} to={`/manutencao-${asset.id}`}>
-          <p>{asset.name}</p>
-        </Link>
-      ))}
+      <div className='content'>
+        {assetsToShow?.map((asset, index) => (
+          <AssetMainCard key={index} asset={asset} />
+        ))}
+      </div>
 
       <BottomTab />
       <Outlet />

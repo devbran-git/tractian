@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { AxiosResponse } from 'axios';
 
 import Layout from '../../components/Layout';
 import LinedSwitch from '../../components/LinedSwitch';
+import AssetMainCard from '../../components/AssetMainCard';
 
 import { api } from '../../services/api';
 
@@ -61,11 +62,11 @@ const Home = () => {
         setSelectedUnit={setSelectedUnit}
       />
 
-      {assetsToShow?.map((asset, index) => (
-        <Link key={index} to={`/ativo-${asset.id}`}>
-          <p>{asset.name}</p>
-        </Link>
-      ))}
+      <div className='content'>
+        {assetsToShow?.map((asset, index) => (
+          <AssetMainCard key={index} asset={asset} />
+        ))}
+      </div>
 
       <Outlet />
     </Layout>
