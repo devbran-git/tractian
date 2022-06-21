@@ -1,12 +1,18 @@
+import './styles.css';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { api } from '../../services/api';
 
 import { Asset } from '../../types/asset';
+import { LeftOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+import AssetDetailsCard from '../../components/AssetDetailsCard';
 
 const AssetDetail: React.FC = () => {
   const { assetParam } = useParams();
+
+  const { Text } = Typography;
 
   const [assetDetails, setAssetDetails] = useState({} as Asset);
 
@@ -33,30 +39,15 @@ const AssetDetail: React.FC = () => {
   }, []);
 
   return (
-    <div
-      className='details-container'
-      style={{
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Link to={goBack()}>
-        <p>←</p>
-      </Link>
+    <div className='details-container'>
+      <div style={{ padding: '0 24px' }}>
+        <Link className='back-button' to={goBack()}>
+          <LeftOutlined />
+          <Text style={{ paddingTop: '1.5px' }}>Voltar</Text>
+        </Link>
 
-      <img
-        src={assetDetails?.image}
-        style={{ width: '80px', height: '80px', objectFit: 'cover' }}
-        alt={assetDetails?.name}
-      />
-
-      <p>{assetDetails?.id}</p>
-      <p>{assetDetails?.name}</p>
-      <p>{assetDetails?.model}</p>
-      <p>{assetDetails?.status}</p>
-      <p>{assetDetails?.healthscore}</p>
+        <AssetDetailsCard asset={assetDetails} />
+      </div>
     </div>
   );
 };
