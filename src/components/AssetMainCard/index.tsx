@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 import { Typography, Image, Space } from 'antd';
 
-import { AssetMainCardProps } from './types';
-import { STATUS_COLORS } from '../../constants';
+import { STATUS_COLORS, STATUS_VALUES } from '../../constants';
 import { setHealthScoreColor } from '../../helpers/healthScoreColors';
+
+import { AssetMainCardProps } from './types';
 
 const AssetMainCard: React.FC<AssetMainCardProps> = ({
   asset,
@@ -31,7 +32,7 @@ const AssetMainCard: React.FC<AssetMainCardProps> = ({
               color: STATUS_COLORS[asset?.status],
             }}
             className='asset-data'>
-            {asset?.status}
+            {STATUS_VALUES[asset?.status]}
           </Text>
         </div>
 

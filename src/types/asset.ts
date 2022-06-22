@@ -8,7 +8,7 @@ export interface Asset {
     totalCollectsUptime: number;
     totalUptime: number;
   };
-  model: string;
+  model: 'motor' | 'fan';
   name: string;
   sensors: string[];
   specifications: {

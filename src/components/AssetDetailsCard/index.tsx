@@ -1,7 +1,8 @@
 import './styles.css';
-import { Image, Space, Typography } from 'antd';
 import React from 'react';
-import { STATUS_COLORS } from '../../constants';
+import { Image, Space, Typography } from 'antd';
+
+import { ASSET_MODELS, STATUS_COLORS, STATUS_VALUES } from '../../constants';
 
 import { AssetDetailsCardProps } from './types';
 
@@ -21,7 +22,9 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ asset }) => {
 
         <div>
           <Text className='details-asset-label'>Modelo:</Text>
-          <Text className='details-asset-data'>{asset?.model}</Text>
+          <Text className='details-asset-data'>
+            {ASSET_MODELS[asset?.model]}
+          </Text>
         </div>
 
         <div>
@@ -31,7 +34,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ asset }) => {
               color: STATUS_COLORS[asset?.status],
             }}
             className='details-asset-data'>
-            {asset?.status}
+            {STATUS_VALUES[asset?.status]}
           </Text>
         </div>
       </Space>
