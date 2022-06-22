@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 
 import Layout from '../../components/Layout';
-import LinedSwitch from '../../components/LinedSwitch';
 import AssetMainCard from '../../components/AssetMainCard';
 
 import { api } from '../../services/api';
@@ -55,16 +54,19 @@ const Home = () => {
   }, [selectedUnit]);
 
   return (
-    <Layout headerTitle='Unidades'>
-      <LinedSwitch
-        units={units}
-        selectedUnit={selectedUnit}
-        setSelectedUnit={setSelectedUnit}
-      />
-
+    <Layout
+      headerTitle='Unidades'
+      units={units}
+      selectedUnit={selectedUnit}
+      setSelectedUnit={setSelectedUnit}>
       <div className='content'>
         {assetsToShow?.map((asset, index) => (
-          <AssetMainCard key={index} asset={asset} />
+          <AssetMainCard
+            key={index}
+            asset={asset}
+            selectedUnit={selectedUnit}
+            paramPrefix='ativo'
+          />
         ))}
       </div>
 

@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import BottomTab from '../../components/BottomTab';
+import Layout from '../../components/Layout';
 
 import { AxiosResponse } from 'axios';
 
 import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
-import Layout from '../../components/Layout';
-import LinedSwitch from '../../components/LinedSwitch';
 
 const Assets: React.FC = () => {
   const [units, setUnits] = useState<Unit[]>([]);
@@ -70,13 +68,11 @@ const Assets: React.FC = () => {
   }, [selectedUnit]);
 
   return (
-    <Layout headerTitle='Ativos'>
-      <LinedSwitch
-        units={units}
-        selectedUnit={selectedUnit}
-        setSelectedUnit={setSelectedUnit}
-      />
-
+    <Layout
+      headerTitle='Ativos'
+      units={units}
+      selectedUnit={selectedUnit}
+      setSelectedUnit={setSelectedUnit}>
       {assetsToShow?.map((asset, index) => (
         <Link key={index} to={`/ativo-${asset.id}`}>
           <p>{asset.name}</p>

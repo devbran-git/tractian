@@ -1,0 +1,10 @@
+.lined-switch-sticky {
+  position: sticky;
+  top: 59px;
+
+  z-index: 1;
+
+  padding-top: 24px;
+
+  background-color: var(--smoke);
+}

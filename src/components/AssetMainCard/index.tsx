@@ -5,14 +5,20 @@ import { Link } from 'react-router-dom';
 import { Typography, Image, Space } from 'antd';
 
 import { AssetMainCardProps } from './types';
-import { STATUS_TEXT_COLORS } from '../../constants';
+import { STATUS_COLORS } from '../../constants';
 import { setHealthScoreColor } from '../../helpers/healthScoreColors';
 
-const AssetMainCard: React.FC<AssetMainCardProps> = ({ asset }) => {
+const AssetMainCard: React.FC<AssetMainCardProps> = ({
+  asset,
+  selectedUnit,
+  paramPrefix,
+}) => {
   const { Text } = Typography;
 
+  const routeURL = `/${paramPrefix}-${selectedUnit}-${asset.id}`;
+
   return (
-    <Link className='card-container' to={`/ativo-${asset.id}`}>
+    <Link className='card-container' to={routeURL}>
       <Image className='asset-image' src={asset?.image} preview={false} />
 
       <Space direction='vertical'>
@@ -22,7 +28,7 @@ const AssetMainCard: React.FC<AssetMainCardProps> = ({ asset }) => {
           <Text className='asset-label'>Status:</Text>
           <Text
             style={{
-              color: STATUS_TEXT_COLORS[asset?.status],
+              color: STATUS_COLORS[asset?.status],
             }}
             className='asset-data'>
             {asset?.status}

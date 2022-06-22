@@ -12,12 +12,12 @@ import AssetDetailsCard from '../../components/AssetDetailsCard';
 const AssetDetail: React.FC = () => {
   const { assetParam } = useParams();
 
+  const assetParams = assetParam?.split('-') as string[];
+  const assetId = assetParams[2];
+
   const { Text } = Typography;
 
   const [assetDetails, setAssetDetails] = useState({} as Asset);
-
-  const assetParams = assetParam?.split('-') as string[];
-  const assetId = assetParams[1];
 
   const goBack = () => {
     const routeToBack = assetParams[0];

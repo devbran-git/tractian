@@ -1,4 +1,4 @@
-import './style.css';
+import './styles.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const BottomTab: React.FC = () => {
         className={({ isActive }) =>
           isActive ? 'active-style' : 'inactive-style'
         }
-        to='/manutencao'>
+        to={`/manutencao`}>
         <ToolOutlined className='bottom-tab-icon' />
       </NavLink>
       <NavLink

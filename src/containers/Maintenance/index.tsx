@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import BottomTab from '../../components/BottomTab';
 
 import { AxiosResponse } from 'axios';
 
 import Layout from '../../components/Layout';
-import LinedSwitch from '../../components/LinedSwitch';
 import AssetMainCard from '../../components/AssetMainCard';
 
 import { api } from '../../services/api';
@@ -61,20 +59,22 @@ const Maintenance = () => {
   }, [selectedUnit]);
 
   return (
-    <Layout headerTitle='Manutenção'>
-      <LinedSwitch
-        units={units}
-        selectedUnit={selectedUnit}
-        setSelectedUnit={setSelectedUnit}
-      />
-
+    <Layout
+      headerTitle='Manutenção'
+      units={units}
+      selectedUnit={selectedUnit}
+      setSelectedUnit={setSelectedUnit}>
       <div className='content'>
         {assetsToShow?.map((asset, index) => (
-          <AssetMainCard key={index} asset={asset} />
+          <AssetMainCard
+            key={index}
+            asset={asset}
+            selectedUnit={selectedUnit}
+            paramPrefix='manutencao'
+          />
         ))}
       </div>
 
-      <BottomTab />
       <Outlet />
     </Layout>
   );
