@@ -1,18 +1,16 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
+import { Typography } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 import { Link, useParams } from 'react-router-dom';
+
+import AssetDetailsCard from '../../components/AssetDetailsCard';
+import SpecificationsStack from '../../components/SpecificationsStack';
+import MonitoringDisplay from '../../components/MonitoringDisplay';
 
 import { api } from '../../services/api';
 
 import { Asset } from '../../types/asset';
-import { LeftOutlined } from '@ant-design/icons';
-import { Space, Typography } from 'antd';
-import AssetDetailsCard from '../../components/AssetDetailsCard';
-import SpecificationCard from '../../components/SpecificationCard';
-import HealthIcon from '../../components/CustomIcons/HealthIcon';
-import RpmIconIcon from '../../components/CustomIcons/RpmIcon';
-import TemperatureIcon from '../../components/CustomIcons/TemperatureIcon';
-import PowerIcon from '../../components/CustomIcons/PowerIcon';
 
 const AssetDetail: React.FC = () => {
   const { assetParam } = useParams();
@@ -54,30 +52,11 @@ const AssetDetail: React.FC = () => {
         <AssetDetailsCard asset={assetDetails} />
       </div>
 
-      <Space className='specifications-stack' size={12}>
-        <SpecificationCard text={`${assetDetails?.healthscore}%`}>
-          <HealthIcon />
-        </SpecificationCard>
+      <SpecificationsStack assetDetails={assetDetails} />
 
-        {assetDetails?.specifications?.power ? (
-          <SpecificationCard text={`${assetDetails?.specifications?.power}KWh`}>
-            <PowerIcon />
-          </SpecificationCard>
-        ) : null}
-
-        {assetDetails?.specifications?.maxTemp ? (
-          <SpecificationCard
-            text={`${assetDetails?.specifications?.maxTemp}ºC`}>
-            <TemperatureIcon />
-          </SpecificationCard>
-        ) : null}
-
-        {assetDetails?.specifications?.rpm ? (
-          <SpecificationCard text={`${assetDetails?.specifications?.rpm} rpm`}>
-            <RpmIconIcon />
-          </SpecificationCard>
-        ) : null}
-      </Space>
+      <div style={{ padding: '0 24px', marginTop: '16px' }}>
+        <MonitoringDisplay assetDetails={assetDetails} />
+      </div>
     </div>
   );
 };
