@@ -12,8 +12,8 @@ export interface Asset {
   name: string;
   sensors: string[];
   specifications: {
-    maxTemp?: 53;
-    power?: 1.5;
+    maxTemp?: number;
+    power?: number;
     rpm?: number | null;
   };
   status: 'inDowntime' | 'inAlert' | 'inOperation';
