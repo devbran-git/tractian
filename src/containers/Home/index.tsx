@@ -10,6 +10,7 @@ import { api } from '../../services/api';
 
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
+import MaintenanceModal from '../../components/MaintenanceModal';
 
 const Home = () => {
   const [units, setUnits] = useState<Unit[]>([]);
