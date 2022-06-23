@@ -1,6 +1,6 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
-import { Typography } from 'antd';
+import { Select, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { Link, useParams } from 'react-router-dom';
 
@@ -84,7 +84,7 @@ const AssetDetail: React.FC = () => {
           )}
         </div>
 
-        <MaintenanceModal />
+        <MaintenanceModal asset={assetDetails} />
       </div>
     </>
   );
