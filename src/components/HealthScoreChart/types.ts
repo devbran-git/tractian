@@ -1,8 +1,8 @@
 export interface HealthScoreChartProps {
-  assetsByHealthScore: any;
+  assetsByHealthScore: Series[];
 }
 
 export interface Series {
   name: string;
-  data: number;
+  data: number[];
 }

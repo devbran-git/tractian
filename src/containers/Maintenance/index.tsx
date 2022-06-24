@@ -1,35 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { AxiosResponse } from 'axios';
-
 import Layout from '../../components/Layout';
 import AssetMainCard from '../../components/AssetMainCard';
 
-import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
-import { Unit } from '../../types/unit';
+import { useAssets } from '../../hooks/assets';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const Maintenance = () => {
-  const [units, setUnits] = useState<Unit[]>([]);
-  const [assets, setAssets] = useState<Asset[]>([]);
+  const { units, assets, isLoading, selectedUnit, setSelectedUnit } =
+    useAssets();
+
   const [assetsToShow, setAssetsToShow] = useState<Asset[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedUnit, setSelectedUnit] = useState(1);
 
-  const getUnitsData = async () => {
-    let response = await api.get('units');
-
-    setUnits(response?.data);
-  };
-
-  const getToMaintenanceAssetsData = async () => {
-    const response: AxiosResponse<Asset[]> = await api.get('assets');
-
-    const totalAssets = response?.data;
-
-    const toMaintenanceAssets = totalAssets.filter(
+  const onFilterAssetsToShow = () => {
+    const toMaintenanceAssets = assets?.filter(
       (toMaintenance) =>
         toMaintenance.status === 'inDowntime' ||
         toMaintenance.status === 'inAlert'
@@ -39,30 +25,16 @@ const Maintenance = () => {
       (asset) => asset.unitId === selectedUnit
     );
 
-    setAssets(toMaintenanceAssets);
     setAssetsToShow(unitAssets);
   };
 
-  const onSelectUnit = () => {
-    const newAssetsList = assets.filter(
-      (asset) => asset.unitId === selectedUnit
-    );
-
-    setAssetsToShow(newAssetsList);
-  };
-
   useEffect(() => {
-    getUnitsData();
-    getToMaintenanceAssetsData();
-  }, []);
-
-  useEffect(() => {
-    onSelectUnit();
+    onFilterAssetsToShow();
   }, [selectedUnit]);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, [assets]);
+    onFilterAssetsToShow();
+  }, []);
 
   return (
     <Layout

@@ -6,7 +6,7 @@ import Home from '../containers/Home';
 import Maintenance from '../containers/Maintenance';
 import Assets from '../containers/Assets';
 import AssetDetail from '../containers/AssetDetail';
-import Layout from '../components/Layout';
+import { AssetsProvider } from '../hooks/assets';
 
 const AppRoutes = () => {
   const storageKey = '@TRACTIAN: onboarding';
@@ -30,32 +30,34 @@ const AppRoutes = () => {
   }, [isAppStarted]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {isAppStarted ? (
-          <>
-            <Route path='/' element={<Home />}>
-              <Route path='/:assetParam' element={<AssetDetail />} />
-            </Route>
+    <AssetsProvider>
+      <BrowserRouter>
+        <Routes>
+          {isAppStarted ? (
+            <>
+              <Route path='/' element={<Home />}>
+                <Route path='/:assetParam' element={<AssetDetail />} />
+              </Route>
 
-            <Route path='/manutencao' element={<Maintenance />} />
+              <Route path='/manutencao' element={<Maintenance />} />
 
-            <Route path='/ativos' element={<Assets />} />
+              <Route path='/ativos' element={<Assets />} />
 
-            <Route
-              path='*'
-              element={
-                <main style={{ padding: '1rem' }}>
-                  <p>Ooops! Nada por aqui!</p>
-                </main>
-              }
-            />
-          </>
-        ) : (
-          <Route path='/' element={<Onboarding onStartApp={onStartApp} />} />
-        )}
-      </Routes>
-    </BrowserRouter>
+              <Route
+                path='*'
+                element={
+                  <main style={{ padding: '1rem' }}>
+                    <p>Ooops! Nada por aqui!</p>
+                  </main>
+                }
+              />
+            </>
+          ) : (
+            <Route path='/' element={<Onboarding onStartApp={onStartApp} />} />
+          )}
+        </Routes>
+      </BrowserRouter>
+    </AssetsProvider>
   );
 };
 

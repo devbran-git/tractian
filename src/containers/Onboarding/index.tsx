@@ -6,7 +6,6 @@ import logoImg from '../../assets/images/logo_light.svg';
 import { colors } from '../../styles/colors';
 import { api } from '../../services/api';
 import { useEffect, useState } from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
 
 interface OnboardingProps {
   onStartApp: () => void;
@@ -31,7 +30,9 @@ const Onboarding: React.FC<OnboardingProps> = ({ onStartApp }) => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, [companyName]);
 
   return (
@@ -55,36 +56,34 @@ const Onboarding: React.FC<OnboardingProps> = ({ onStartApp }) => {
         Nunca foi tão fácil monitorar seu ativos
       </Text>
 
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 120,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          padding: '0 24px',
-        }}>
+      {!isLoading && (
         <div
           style={{
+            position: 'absolute',
+            bottom: 120,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            height: '48px',
-            borderRadius: '4px',
-            border: `solid 1.5px ${colors.success}`,
-          }}
-          onClick={onStartApp}>
-          {isLoading ? (
-            <LoadingOutlined style={{ color: colors.white }} />
-          ) : (
+            padding: '0 24px',
+          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '48px',
+              borderRadius: '4px',
+              border: `solid 1.5px ${colors.success}`,
+            }}
+            onClick={onStartApp}>
             <Text style={{ color: colors.white }}>
               {`Ver ativos da ${companyName}`}
             </Text>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

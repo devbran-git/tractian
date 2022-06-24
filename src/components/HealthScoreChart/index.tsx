@@ -5,7 +5,7 @@ import { HealthScoreChartProps } from './types';
 
 const HealthScoreChart: React.FC<HealthScoreChartProps> = ({
   assetsByHealthScore,
-}) => {
+}: HealthScoreChartProps) => {
   const options = {
     chart: {
       type: 'bar',

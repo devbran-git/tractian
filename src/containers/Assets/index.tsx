@@ -11,12 +11,13 @@ import { LoadingOutlined } from '@ant-design/icons';
 import StatusChart from '../../components/StatusChart';
 import HealthScoreChart from '../../components/HealthScoreChart';
 import { colors } from '../../styles/colors';
+import { Series } from '../../components/HealthScoreChart/types';
 
 const Assets: React.FC = () => {
   const [units, setUnits] = useState<Unit[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [assetsByStatus, setAssetsByStatus] = useState<string[]>([]);
-  const [assetsByHealthScore, setAssetsByHealthScore] = useState({});
+  const [assetsByHealthScore, setAssetsByHealthScore] = useState<Series[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(1);
 
@@ -43,6 +44,8 @@ const Assets: React.FC = () => {
         data: [item?.healthscore],
       };
     });
+
+    console.log('O que tem no console --->', filteredByHealthScore);
 
     setAssets(totalAssets);
     setAssetsByStatus(filteredByStatus);
