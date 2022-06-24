@@ -5,30 +5,36 @@ import { Image, Space, Typography } from 'antd';
 import { ASSET_MODELS, STATUS_COLORS, STATUS_VALUES } from '../../constants';
 
 import { AssetDetailsCardProps } from './types';
+import { colors } from '../../styles/colors';
 
 const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ asset }) => {
   const { Text } = Typography;
 
   return (
-    <Space className='details-card-container'>
+    <Space size={0} className='details-card-container'>
       <Image
+        style={{ width: '80px', height: '80px' }}
         className='details-asset-image'
         src={asset?.image}
         preview={false}
       />
 
-      <Space direction='vertical'>
+      <Space size={0} direction='vertical'>
         <Text className='details-asset-title'>{asset.name}</Text>
 
         <div>
-          <Text className='details-asset-label'>Modelo:</Text>
+          <Text style={{ color: colors.gray }} className='details-asset-label'>
+            Modelo:
+          </Text>
           <Text className='details-asset-data'>
             {ASSET_MODELS[asset?.model]}
           </Text>
         </div>
 
         <div>
-          <Text className='details-asset-label'>Status:</Text>
+          <Text style={{ color: colors.gray }} className='details-asset-label'>
+            Status:
+          </Text>
           <Text
             style={{
               color: STATUS_COLORS[asset?.status],

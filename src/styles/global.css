@@ -33,7 +33,10 @@ body {
   display: flex;
   flex-direction: column;
 
+  height: 100vh;
+
   padding-top: 60px;
+  background-color: var(--smoke);
 }
 
 .content {

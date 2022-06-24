@@ -14,9 +14,7 @@
 
   background-color: var(--white);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-}
 
-.header > h1 {
   font-size: 16px;
   font-weight: 400;
 }

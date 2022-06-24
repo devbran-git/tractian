@@ -14,26 +14,10 @@
 }
 
 .display-wrapper {
-  display: flex;
-  justify-content: space-between;
-
   margin-top: 8px;
   padding: 16px 12px;
 
   border-radius: 4px;
 
   background-color: var(--white);
-}
-
-.labels-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.display-labels {
-  display: flex;
-  flex-direction: row;
-
-  align-items: center;
 }

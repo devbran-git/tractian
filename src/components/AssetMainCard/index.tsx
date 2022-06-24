@@ -8,6 +8,7 @@ import { STATUS_COLORS, STATUS_VALUES } from '../../constants';
 import { setHealthScoreColor } from '../../helpers/healthScoreColors';
 
 import { AssetMainCardProps } from './types';
+import { colors } from '../../styles/colors';
 
 const AssetMainCard: React.FC<AssetMainCardProps> = ({
   asset,
@@ -20,9 +21,14 @@ const AssetMainCard: React.FC<AssetMainCardProps> = ({
 
   return (
     <Link className='card-container' to={routeURL}>
-      <Image className='asset-image' src={asset?.image} preview={false} />
+      <Image
+        className='asset-image'
+        style={{ width: '64px', height: '64px' }}
+        src={asset?.image}
+        preview={false}
+      />
 
-      <Space direction='vertical'>
+      <Space size={0} direction='vertical'>
         <Text className='asset-title'>{asset.name}</Text>
 
         <div>
@@ -47,7 +53,9 @@ const AssetMainCard: React.FC<AssetMainCardProps> = ({
           </Text>
         </div>
 
-        <Text className='access-details'>Detalhes</Text>
+        <Text style={{ color: colors.gray }} className='access-details'>
+          Detalhes
+        </Text>
       </Space>
     </Link>
   );

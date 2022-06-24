@@ -1,6 +1,6 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
-import { Select, Typography } from 'antd';
+import { Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { Link, useParams } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ import { Asset } from '../../types/asset';
 import AssetAssetMessage from '../../components/AssetMessage';
 import PrimaryButton from '../../components/PrimaryButton';
 import MaintenanceModal from '../../components/MaintenanceModal';
+import { colors } from '../../styles/colors';
 
 const AssetDetail: React.FC = () => {
   const { Text } = Typography;
@@ -35,7 +36,9 @@ const AssetDetail: React.FC = () => {
     return '/';
   };
 
-  const onAskMaintenance = () => {};
+  const handleModalCancel = () => {};
+
+  const onMaintenanceRequest = () => {};
 
   const getAssetDetailsData = async () => {
     const assetResponse = await api.get(`assets/${assetId}`);
@@ -54,7 +57,7 @@ const AssetDetail: React.FC = () => {
         <div style={{ padding: '0 24px' }}>
           <Link className='back-button' to={goBack()}>
             <LeftOutlined />
-            <Text style={{ paddingTop: '1.5px' }}>Voltar</Text>
+            <Text style={{ color: colors.primary }}>Voltar</Text>
           </Link>
 
           <AssetDetailsCard asset={assetDetails} />
@@ -84,7 +87,12 @@ const AssetDetail: React.FC = () => {
           )}
         </div>
 
-        <MaintenanceModal asset={assetDetails} />
+        <MaintenanceModal
+          asset={assetDetails}
+          isModalOpen={isModalOpen}
+          handleModalCancel={handleModalCancel}
+          onMaintenanceRequest={onMaintenanceRequest}
+        />
       </div>
     </>
   );

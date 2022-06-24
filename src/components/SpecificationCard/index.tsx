@@ -3,6 +3,7 @@ import React from 'react';
 import { Space, Typography } from 'antd';
 
 import { SpecificationCardProps } from './types';
+import { colors } from '../../styles/colors';
 
 const SpecificationCard: React.FC<SpecificationCardProps> = ({
   text,
@@ -13,7 +14,9 @@ const SpecificationCard: React.FC<SpecificationCardProps> = ({
   return (
     <Space size={0} className='specification-card-container'>
       {children}
-      <Text className='specification-card-text'>{text}</Text>
+      <Text style={{ color: colors.white }} className='specification-card-text'>
+        {text}
+      </Text>
     </Space>
   );
 };
