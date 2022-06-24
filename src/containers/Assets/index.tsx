@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import Layout from '../../components/Layout';
 
@@ -9,11 +8,15 @@ import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
 import { LoadingOutlined } from '@ant-design/icons';
+import StatusChart from '../../components/StatusChart';
+import HealthScoreChart from '../../components/HealthScoreChart';
+import { colors } from '../../styles/colors';
 
 const Assets: React.FC = () => {
   const [units, setUnits] = useState<Unit[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
-  const [assetsToShow, setAssetsToShow] = useState<Asset[]>([]);
+  const [assetsByStatus, setAssetsByStatus] = useState<string[]>([]);
+  const [assetsByHealthScore, setAssetsByHealthScore] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(1);
 
@@ -33,15 +36,17 @@ const Assets: React.FC = () => {
     );
 
     const filteredByStatus = initialAssetsList.map((item) => item.status);
-    const filteredByHealthScore = initialAssetsList.map(
-      (item) => item.healthscore
-    );
 
-    console.log('INITIAL - STATUS  --->', filteredByStatus);
-    console.log('INITIAL - HEALTHSCORE --->', filteredByHealthScore);
+    const filteredByHealthScore = initialAssetsList.map((item) => {
+      return {
+        name: item?.name,
+        data: [item?.healthscore],
+      };
+    });
 
     setAssets(totalAssets);
-    setAssetsToShow(initialAssetsList);
+    setAssetsByStatus(filteredByStatus);
+    setAssetsByHealthScore(filteredByHealthScore);
   };
 
   const onSelectUnit = () => {
@@ -50,14 +55,16 @@ const Assets: React.FC = () => {
     );
 
     const newFilteredByStatus = newAssetsList.map((item) => item.status);
-    const newFilteredByHealthScore = newAssetsList.map(
-      (item) => item.healthscore
-    );
 
-    console.log('NOVO  - STATUS  --->', newFilteredByStatus);
-    console.log('NOVO - HEALTHSCORE --->', newFilteredByHealthScore);
+    const newFilteredByHealthScore = newAssetsList.map((item) => {
+      return {
+        name: item?.name,
+        data: [item?.healthscore],
+      };
+    });
 
-    setAssetsToShow(newAssetsList);
+    setAssetsByStatus(newFilteredByStatus);
+    setAssetsByHealthScore(newFilteredByHealthScore);
   };
 
   useEffect(() => {
@@ -82,11 +89,11 @@ const Assets: React.FC = () => {
       {isLoading ? (
         <LoadingOutlined />
       ) : (
-        assetsToShow?.map((asset, index) => (
-          <Link key={index} to={`/ativo-${asset.id}`}>
-            <p>{asset.name}</p>
-          </Link>
-        ))
+        <div style={{ backgroundColor: colors.smoke, paddingBottom: 60 }}>
+          <StatusChart assetsByStatus={assetsByStatus} />
+
+          <HealthScoreChart assetsByHealthScore={assetsByHealthScore} />
+        </div>
       )}
     </Layout>
   );
