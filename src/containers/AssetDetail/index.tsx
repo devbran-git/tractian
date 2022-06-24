@@ -1,28 +1,16 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
-import { Typography } from 'antd';
-import { LeftOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import AssetDetailsCard from '../../components/AssetDetailsCard';
-import SpecificationsStack from '../../components/SpecificationsStack';
-import MonitoringDisplay from '../../components/MonitoringDisplay';
-
-import { api } from '../../services/api';
-
-import AssetAssetMessage from '../../components/AssetMessage';
-import PrimaryButton from '../../components/PrimaryButton';
-import MaintenanceModal from '../../components/MaintenanceModal';
-
-import { colors } from '../../styles/colors';
-
-import { Asset } from '../../types/asset';
-import { User } from '../../types/user';
 import { RequestData } from './types';
-import MaintenanceRequestDisplay from '../../components/MaintenanceRequestDisplay';
+
+import { useAssets } from '../../hooks/assets';
+import { useUsers } from '../../hooks/users';
+import AssetDetailsLayout from './layout';
 
 const AssetDetail: React.FC = () => {
-  const { Text } = Typography;
+  const { assetDetails, getAssetDetailsData } = useAssets();
+  const { users } = useUsers();
 
   const { assetParam } = useParams();
 
@@ -30,9 +18,7 @@ const AssetDetail: React.FC = () => {
   const assetId = assetParams[2];
   const unitId = assetParams[1];
 
-  const [users, setUsers] = useState<User[]>([]);
   const [namesList, setNamesList] = useState<string[]>([]);
-  const [assetDetails, setAssetDetails] = useState({} as Asset);
   const [requestData, setRequestData] = useState({} as RequestData);
   const [priority, setPriority] = useState('');
   const [responsible, setResponsible] = useState('');
@@ -81,20 +67,6 @@ const AssetDetail: React.FC = () => {
     }
   };
 
-  const getAssetDetailsData = async () => {
-    const assetResponse = await api.get(`assets/${assetId}`);
-    const assetDetailsData = assetResponse.data;
-
-    setAssetDetails(assetDetailsData);
-  };
-
-  const getUnitUsers = async () => {
-    const usersResponse = await api.get(`users`);
-    const usersData = usersResponse.data;
-
-    setUsers(usersData);
-  };
-
   const usersList = users?.filter((user) => user?.unitId === Number(unitId));
 
   const onListUsersNames = () => {
@@ -108,8 +80,7 @@ const AssetDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    getAssetDetailsData();
-    getUnitUsers();
+    getAssetDetailsData(assetId);
   }, []);
 
   useEffect(() => {
@@ -120,66 +91,24 @@ const AssetDetail: React.FC = () => {
     setIsLoading(false);
   }, [assetDetails]);
 
-  return (
-    <>
-      {isLoading ? (
-        <LoadingOutlined />
-      ) : (
-        <>
-          <div className='details-container'>
-            <div style={{ padding: '0 24px' }}>
-              <Link className='back-button' to={goBack()}>
-                <LeftOutlined />
-                <Text style={{ color: colors.primary }}>Voltar</Text>
-              </Link>
+  const localState = {
+    isLoading,
+    namesList,
+    requestData,
+    isModalOpen,
+    assetDetails,
+    maintenanceRequested,
+  };
+  const handlers = {
+    handleSelectResponsible,
+    onMaintenanceRequest,
+    handleSelectPriority,
+    handleModalCancel,
+    setIsModalOpen,
+    goBack,
+  };
 
-              <AssetDetailsCard asset={assetDetails} />
-            </div>
-
-            <SpecificationsStack assetDetails={assetDetails} />
-
-            <div
-              style={{
-                display: 'flex',
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                padding: '0 24px 40px',
-                marginTop: '12px',
-              }}>
-              {maintenanceRequested ? (
-                <MaintenanceRequestDisplay requestData={requestData} />
-              ) : (
-                <>
-                  <MonitoringDisplay assetDetails={assetDetails} />
-
-                  <AssetAssetMessage asset={assetDetails} />
-
-                  {assetDetails?.status !== 'inOperation' && (
-                    <PrimaryButton onClick={() => setIsModalOpen(true)} />
-                  )}
-
-                  {assetDetails?.status === 'inOperation' && (
-                    <div style={{ width: '100%', maxHeight: '48px' }} />
-                  )}
-                </>
-              )}
-            </div>
-
-            <MaintenanceModal
-              asset={assetDetails}
-              usersList={namesList}
-              isModalOpen={isModalOpen}
-              handleSelectPriority={handleSelectPriority}
-              handleSelectResponsible={handleSelectResponsible}
-              handleModalCancel={handleModalCancel}
-              onMaintenanceRequest={onMaintenanceRequest}
-            />
-          </div>
-        </>
-      )}
-    </>
-  );
+  return <AssetDetailsLayout localState={localState} handlers={handlers} />;
 };
 
 export default AssetDetail;

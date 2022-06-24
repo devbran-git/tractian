@@ -7,6 +7,7 @@ import Maintenance from '../containers/Maintenance';
 import Assets from '../containers/Assets';
 import AssetDetail from '../containers/AssetDetail';
 import { AssetsProvider } from '../hooks/assets';
+import { UsersContextProvider } from '../hooks/users';
 
 const AppRoutes = () => {
   const storageKey = '@TRACTIAN: onboarding';
@@ -31,32 +32,37 @@ const AppRoutes = () => {
 
   return (
     <AssetsProvider>
-      <BrowserRouter>
-        <Routes>
-          {isAppStarted ? (
-            <>
-              <Route path='/' element={<Home />}>
-                <Route path='/:assetParam' element={<AssetDetail />} />
-              </Route>
+      <UsersContextProvider>
+        <BrowserRouter>
+          <Routes>
+            {isAppStarted ? (
+              <>
+                <Route path='/' element={<Home />}>
+                  <Route path='/:assetParam' element={<AssetDetail />} />
+                </Route>
 
-              <Route path='/manutencao' element={<Maintenance />} />
+                <Route path='/manutencao' element={<Maintenance />} />
 
-              <Route path='/ativos' element={<Assets />} />
+                <Route path='/ativos' element={<Assets />} />
 
+                <Route
+                  path='*'
+                  element={
+                    <main style={{ padding: '1rem' }}>
+                      <p>Ooops! Nada por aqui!</p>
+                    </main>
+                  }
+                />
+              </>
+            ) : (
               <Route
-                path='*'
-                element={
-                  <main style={{ padding: '1rem' }}>
-                    <p>Ooops! Nada por aqui!</p>
-                  </main>
-                }
+                path='/'
+                element={<Onboarding onStartApp={onStartApp} />}
               />
-            </>
-          ) : (
-            <Route path='/' element={<Onboarding onStartApp={onStartApp} />} />
-          )}
-        </Routes>
-      </BrowserRouter>
+            )}
+          </Routes>
+        </BrowserRouter>
+      </UsersContextProvider>
     </AssetsProvider>
   );
 };

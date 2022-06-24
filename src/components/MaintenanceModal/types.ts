@@ -3,8 +3,8 @@ export interface MaintenanceModalProps {
   asset: Asset;
   usersList: string[];
   isModalOpen: boolean;
-  handleSelectPriority: (t: string) => void;
-  handleSelectResponsible: (t: string) => void;
+  handleSelectPriority: () => void;
+  handleSelectResponsible: () => void;
   handleModalCancel: () => void;
   onMaintenanceRequest: () => void;
 }

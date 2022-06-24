@@ -18,8 +18,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
       <Select
         placeholder='selecione'
-        style={{ width: 140 }}
-        onChange={handleChange}>
+        style={{ width: 120 }}
+        onChange={() => handleChange()}>
         {optionsList?.map((option, index) => (
           <Select.Option key={index} value={option}>
             {option}
