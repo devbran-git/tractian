@@ -10,12 +10,14 @@ import { api } from '../../services/api';
 
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const Home = () => {
   const [units, setUnits] = useState<Unit[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [assetsToShow, setAssetsToShow] = useState<Asset[]>([]);
   const [selectedUnit, setSelectedUnit] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getUnitsData = async () => {
     const unitResponse = await api.get('units');
@@ -53,6 +55,10 @@ const Home = () => {
     onSelectUnit();
   }, [selectedUnit]);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [assets]);
+
   return (
     <Layout
       headerTitle='Unidades'
@@ -60,14 +66,18 @@ const Home = () => {
       selectedUnit={selectedUnit}
       setSelectedUnit={setSelectedUnit}>
       <div className='content'>
-        {assetsToShow?.map((asset, index) => (
-          <AssetMainCard
-            key={index}
-            asset={asset}
-            selectedUnit={selectedUnit}
-            paramPrefix='ativo'
-          />
-        ))}
+        {isLoading ? (
+          <LoadingOutlined />
+        ) : (
+          assetsToShow?.map((asset, index) => (
+            <AssetMainCard
+              key={index}
+              asset={asset}
+              selectedUnit={selectedUnit}
+              paramPrefix='ativo'
+            />
+          ))
+        )}
       </div>
 
       <Outlet />

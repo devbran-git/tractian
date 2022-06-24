@@ -1,19 +1,19 @@
-.monitoring-title {
+.maintenance-request-title {
   font-weight: 500;
 }
 
-.monitoring-label {
+.maintenance-request-label {
   font-size: 12px;
   font-weight: 500;
 
   color: var(--gray);
 }
 
-.monitoring-value {
+.maintenance-request-value {
   font-size: 12px;
 }
 
-.display-wrapper {
+.maintenance-request-display-wrapper {
   margin-top: 8px;
   padding: 16px 12px;
 

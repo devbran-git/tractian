@@ -32,7 +32,9 @@ const AssetMainCard: React.FC<AssetMainCardProps> = ({
         <Text className='asset-title'>{asset.name}</Text>
 
         <div>
-          <Text className='asset-label'>Status:</Text>
+          <Text style={{ color: colors.gray }} className='asset-label'>
+            Status:
+          </Text>
           <Text
             style={{
               color: STATUS_COLORS[asset?.status],
@@ -43,7 +45,9 @@ const AssetMainCard: React.FC<AssetMainCardProps> = ({
         </div>
 
         <div>
-          <Text className='asset-label'>Saúde:</Text>
+          <Text style={{ color: colors.gray }} className='asset-label'>
+            Saúde:
+          </Text>
           <Text
             style={{
               color: setHealthScoreColor(asset?.healthscore),

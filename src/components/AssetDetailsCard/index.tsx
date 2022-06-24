@@ -4,8 +4,9 @@ import { Image, Space, Typography } from 'antd';
 
 import { ASSET_MODELS, STATUS_COLORS, STATUS_VALUES } from '../../constants';
 
-import { AssetDetailsCardProps } from './types';
 import { colors } from '../../styles/colors';
+
+import { AssetDetailsCardProps } from './types';
 
 const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ asset }) => {
   const { Text } = Typography;
@@ -16,7 +17,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ asset }) => {
         style={{ width: '80px', height: '80px' }}
         className='details-asset-image'
         src={asset?.image}
-        preview={false}
+        alt={asset?.name}
       />
 
       <Space size={0} direction='vertical'>

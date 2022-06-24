@@ -40,6 +40,7 @@ const MonitoringDisplay: React.FC<MonitoringDisplayProps> = ({
             alignItems: 'flex-start',
           }}>
           <Space
+            size={4}
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -52,6 +53,7 @@ const MonitoringDisplay: React.FC<MonitoringDisplayProps> = ({
           </Space>
 
           <Space
+            size={4}
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -72,14 +74,26 @@ const MonitoringDisplay: React.FC<MonitoringDisplayProps> = ({
             flexDirection: 'column',
             alignItems: 'flex-start',
           }}>
-          <Space className='display-labels'>
+          <Space
+            size={4}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <Text style={{ color: colors.gray }} className='monitoring-label'>
               Horas em coleta:
             </Text>
             <Text className='monitoring-value'>{totalUptime}</Text>
           </Space>
 
-          <Space className='display-labels'>
+          <Space
+            size={4}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <Text style={{ color: colors.gray }} className='monitoring-label'>
               Última coleta:
             </Text>

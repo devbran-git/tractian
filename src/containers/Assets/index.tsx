@@ -8,11 +8,13 @@ import { AxiosResponse } from 'axios';
 import { api } from '../../services/api';
 import { Asset } from '../../types/asset';
 import { Unit } from '../../types/unit';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const Assets: React.FC = () => {
   const [units, setUnits] = useState<Unit[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [assetsToShow, setAssetsToShow] = useState<Asset[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(1);
 
   const getUnitsData = async () => {
@@ -67,17 +69,25 @@ const Assets: React.FC = () => {
     onSelectUnit();
   }, [selectedUnit]);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [assets]);
+
   return (
     <Layout
       headerTitle='Ativos'
       units={units}
       selectedUnit={selectedUnit}
       setSelectedUnit={setSelectedUnit}>
-      {assetsToShow?.map((asset, index) => (
-        <Link key={index} to={`/ativo-${asset.id}`}>
-          <p>{asset.name}</p>
-        </Link>
-      ))}
+      {isLoading ? (
+        <LoadingOutlined />
+      ) : (
+        assetsToShow?.map((asset, index) => (
+          <Link key={index} to={`/ativo-${asset.id}`}>
+            <p>{asset.name}</p>
+          </Link>
+        ))
+      )}
     </Layout>
   );
 };
