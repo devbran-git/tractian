@@ -8,7 +8,7 @@ const AssetMessage: React.FC<AssetMessageProps> = ({ asset }) => {
   const { Text } = Typography;
 
   return (
-    <Space className='asset-message-container'>
+    <Space size={0} className='asset-message-container'>
       {STATUS_ICONS[asset?.status]}
 
       <Text

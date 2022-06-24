@@ -32,8 +32,6 @@ const StatusChart: React.FC<StatusChartProps> = ({ assetsByStatus }) => {
   const options = {
     chart: {
       type: 'bar',
-      spacingBottom: -15,
-      spacingTop: -10,
     },
     title: {
       text: '',

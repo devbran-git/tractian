@@ -145,7 +145,7 @@ const AssetDetail: React.FC = () => {
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 padding: '0 24px 40px',
-                marginTop: '16px',
+                marginTop: '12px',
               }}>
               {maintenanceRequested ? (
                 <MaintenanceRequestDisplay requestData={requestData} />
@@ -160,7 +160,7 @@ const AssetDetail: React.FC = () => {
                   )}
 
                   {assetDetails?.status === 'inOperation' && (
-                    <div style={{ width: '100%', height: '48px' }} />
+                    <div style={{ width: '100%', maxHeight: '48px' }} />
                   )}
                 </>
               )}
