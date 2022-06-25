@@ -1,19 +1,21 @@
 import './styles.css';
 import React from 'react';
+import { Modal, Space, Typography } from 'antd';
+
+import CustomSelect from '../CustomSelect';
+import { colors } from '../../styles/colors';
 
 import { MaintenanceModalProps } from './types';
-import { Modal, Space, Typography } from 'antd';
-import { colors } from '../../styles/colors';
-import CustomSelect from '../CustomSelect';
 
 const MaintenanceModal: React.FC<MaintenanceModalProps> = ({
   asset,
   usersList,
   isModalOpen,
+  errorMessage,
   handleSelectPriority,
   handleSelectResponsible,
-  handleModalCancel,
   onMaintenanceRequest,
+  handleModalCancel,
 }) => {
   const { Text } = Typography;
 
@@ -42,16 +44,23 @@ const MaintenanceModal: React.FC<MaintenanceModalProps> = ({
             justifyContent: 'space-between',
           }}>
           <CustomSelect
-            optionsList={priorities}
+            size={100}
             label='Prioridade'
+            optionsList={priorities}
             handleChange={handleSelectPriority}
           />
           <CustomSelect
-            optionsList={usersList}
+            size={140}
             label='Responsável'
+            optionsList={usersList}
             handleChange={handleSelectResponsible}
           />
         </div>
+
+        <Text
+          style={{ color: colors.alert, fontSize: '12px', marginTop: '8px' }}>
+          {errorMessage}
+        </Text>
       </div>
     </Modal>
   );

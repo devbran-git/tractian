@@ -1,8 +1,10 @@
 import './styles.css';
-import { Space, Typography } from 'antd';
 import React from 'react';
-import { AssetMessageProps } from './types';
+import { Space, Typography } from 'antd';
+
 import { STATUS_COLORS, STATUS_MESSAGE, STATUS_ICONS } from '../../constants';
+
+import { AssetMessageProps } from './types';
 
 const AssetMessage: React.FC<AssetMessageProps> = ({ asset }) => {
   const { Text } = Typography;

@@ -32,21 +32,23 @@ const StatusChart: React.FC<StatusChartProps> = ({ assetsByStatus }) => {
   const options = {
     chart: {
       type: 'bar',
+      styledMode: true,
     },
     title: {
       text: '',
     },
     xAxis: {
+      className: 'highcharts-left-axis',
       categories: [''],
       title: {
         text: 'Status dos ativos',
       },
     },
     yAxis: {
+      className: 'highcharts-bottom-axis',
       min: 0,
       title: {
         text: '',
-        align: 'high',
       },
       labels: {
         overflow: 'justify',
@@ -55,6 +57,7 @@ const StatusChart: React.FC<StatusChartProps> = ({ assetsByStatus }) => {
     tooltip: {},
     plotOptions: {
       bar: {
+        borderRadius: 4,
         dataLabels: {
           enabled: true,
         },
@@ -63,13 +66,16 @@ const StatusChart: React.FC<StatusChartProps> = ({ assetsByStatus }) => {
     credits: {
       enabled: false,
     },
+
     series: newSeries,
   };
 
   return (
-    <div style={{ margin: 24 }}>
+    <figure
+      className='status-chart-container'
+      style={{ paddingBottom: '16px' }}>
       <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
+    </figure>
   );
 };
 

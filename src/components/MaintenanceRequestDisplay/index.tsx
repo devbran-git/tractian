@@ -1,9 +1,11 @@
 import './styles.css';
-import { Space, Typography } from 'antd';
 import React from 'react';
 
-import { MaintenanceRequestDisplayProps } from './types';
+import { Space, Typography } from 'antd';
+
 import { colors } from '../../styles/colors';
+
+import { MaintenanceRequestDisplayProps } from './types';
 
 const MaintenanceRequestDisplay: React.FC<MaintenanceRequestDisplayProps> = ({
   requestData,
@@ -12,7 +14,7 @@ const MaintenanceRequestDisplay: React.FC<MaintenanceRequestDisplayProps> = ({
 
   return (
     <Space direction='vertical' size={0}>
-      <Text className='monitoring-title'>Ordem de Serviço</Text>
+      <Text className='monitoring-title'>Ordem de serviço emitida:</Text>
 
       <Space
         size={0}

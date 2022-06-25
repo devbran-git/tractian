@@ -4,11 +4,13 @@ import React from 'react';
 import Header from '../Header';
 import LinedSwitch from '../LinedSwitch';
 import BottomTab from '../BottomTab';
+import LoadingSpin from '../LoadingSpin';
 
 import { LayoutProps } from './types';
 
 const Layout: React.FC<LayoutProps> = ({
   units,
+  isLoading,
   headerTitle,
   selectedUnit,
   setSelectedUnit,
@@ -25,8 +27,7 @@ const Layout: React.FC<LayoutProps> = ({
           setSelectedUnit={setSelectedUnit}
         />
       </div>
-
-      {children}
+      {isLoading ? <LoadingSpin /> : <>{children}</>}
       <BottomTab />
     </main>
   );

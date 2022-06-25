@@ -1,9 +1,10 @@
 import './styles.css';
-import { Space, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Space, Typography } from 'antd';
+
+import { colors } from '../../styles/colors';
 
 import { MonitoringDisplayProps } from './types';
-import { colors } from '../../styles/colors';
 
 const MonitoringDisplay: React.FC<MonitoringDisplayProps> = ({
   assetDetails,

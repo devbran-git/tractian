@@ -1,14 +1,10 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
 
-import Layout from '../../components/Layout';
-import AssetMainCard from '../../components/AssetMainCard';
-import { LoadingOutlined } from '@ant-design/icons';
+import HomeLayout from './layout';
+
+import { useAssets } from '../../hooks/assets';
 
 import { Asset } from '../../types/asset';
-
-import { useMemo } from 'react';
-import { useAssets } from '../../hooks/assets';
 
 const Home = () => {
   const { units, assets, selectedUnit, isLoading, setSelectedUnit } =
@@ -16,38 +12,29 @@ const Home = () => {
 
   const [assetsToShow, setAssetsToShow] = useState<Asset[]>([]);
 
-  const onFilterAssetsToShow = useMemo(() => {
+  const filteredAssetsToShow = useMemo(() => {
     const initialAssetsList = assets?.filter(
       (asset) => asset.unitId === selectedUnit
     );
 
-    setAssetsToShow(initialAssetsList);
-  }, [selectedUnit]);
+    return initialAssetsList;
+  }, [selectedUnit, assets]);
 
-  return (
-    <Layout
-      headerTitle='Unidades'
-      units={units}
-      selectedUnit={selectedUnit}
-      setSelectedUnit={setSelectedUnit}>
-      <div className='content'>
-        {isLoading ? (
-          <LoadingOutlined />
-        ) : (
-          assetsToShow?.map((asset, index) => (
-            <AssetMainCard
-              key={index}
-              asset={asset}
-              selectedUnit={selectedUnit}
-              paramPrefix='ativo'
-            />
-          ))
-        )}
-      </div>
+  useEffect(() => {
+    setAssetsToShow(filteredAssetsToShow);
+  }, [filteredAssetsToShow]);
 
-      <Outlet />
-    </Layout>
-  );
+  const localState = {
+    units,
+    isLoading,
+    selectedUnit,
+    assetsToShow,
+  };
+  const handlers = {
+    setSelectedUnit,
+  };
+
+  return <HomeLayout localState={localState} handlers={handlers} />;
 };
 
 export default Home;

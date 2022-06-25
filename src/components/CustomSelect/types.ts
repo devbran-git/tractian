@@ -1,5 +1,6 @@
 export interface CustomSelectProps {
+  size: number;
   label: string;
   optionsList: string[];
-  handleChange: () => void;
+  handleChange: (v: string) => void;
 }

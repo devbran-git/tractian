@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
 
-import Layout from '../../components/Layout';
-import AssetMainCard from '../../components/AssetMainCard';
+import MaintenanceLayout from './layout';
+
+import { useAssets } from '../../hooks/assets';
 
 import { Asset } from '../../types/asset';
-import { useAssets } from '../../hooks/assets';
-import { LoadingOutlined } from '@ant-design/icons';
 
 const Maintenance = () => {
   const { units, assets, isLoading, selectedUnit, setSelectedUnit } =
@@ -14,7 +12,7 @@ const Maintenance = () => {
 
   const [assetsToShow, setAssetsToShow] = useState<Asset[]>([]);
 
-  const onFilterAssetsToShow = () => {
+  const filteredAssetsToShow = useMemo(() => {
     const toMaintenanceAssets = assets?.filter(
       (toMaintenance) =>
         toMaintenance.status === 'inDowntime' ||
@@ -25,41 +23,25 @@ const Maintenance = () => {
       (asset) => asset.unitId === selectedUnit
     );
 
-    setAssetsToShow(unitAssets);
+    return unitAssets;
+  }, [assets, selectedUnit]);
+
+  useEffect(() => {
+    setAssetsToShow(filteredAssetsToShow);
+  }, [selectedUnit, filteredAssetsToShow]);
+
+  const localState = {
+    units,
+    isLoading,
+    selectedUnit,
+    assetsToShow,
   };
 
-  useEffect(() => {
-    onFilterAssetsToShow();
-  }, [selectedUnit]);
+  const handlers = {
+    setSelectedUnit,
+  };
 
-  useEffect(() => {
-    onFilterAssetsToShow();
-  }, []);
-
-  return (
-    <Layout
-      headerTitle='Manutenção'
-      units={units}
-      selectedUnit={selectedUnit}
-      setSelectedUnit={setSelectedUnit}>
-      <div className='content'>
-        {isLoading ? (
-          <LoadingOutlined />
-        ) : (
-          assetsToShow?.map((asset, index) => (
-            <AssetMainCard
-              key={index}
-              asset={asset}
-              selectedUnit={selectedUnit}
-              paramPrefix='manutencao'
-            />
-          ))
-        )}
-      </div>
-
-      <Outlet />
-    </Layout>
-  );
+  return <MaintenanceLayout localState={localState} handlers={handlers} />;
 };
 
 export default Maintenance;

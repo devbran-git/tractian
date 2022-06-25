@@ -9,24 +9,27 @@ const HealthScoreChart: React.FC<HealthScoreChartProps> = ({
   const options = {
     chart: {
       type: 'bar',
+      styledMode: true,
     },
     title: {
       text: '',
     },
     xAxis: {
+      className: 'highcharts-left-axis',
       categories: [''],
       title: {
         text: 'Saúde dos ativos',
       },
     },
     yAxis: {
+      className: 'highcharts-bottom-axis',
       min: 0,
       title: {
         text: 'Porcentagem',
         align: 'middle',
       },
       labels: {
-        overflow: 'justify',
+        overflow: 'right',
       },
     },
     tooltip: {
@@ -34,6 +37,7 @@ const HealthScoreChart: React.FC<HealthScoreChartProps> = ({
     },
     plotOptions: {
       bar: {
+        borderRadius: 4,
         dataLabels: {
           enabled: true,
         },
@@ -46,9 +50,9 @@ const HealthScoreChart: React.FC<HealthScoreChartProps> = ({
   };
 
   return (
-    <div style={{ margin: 24 }}>
+    <figure className='healthscore-chart-container'>
       <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
+    </figure>
   );
 };
 

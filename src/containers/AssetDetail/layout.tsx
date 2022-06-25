@@ -1,5 +1,7 @@
 import './styles.css';
+import { Typography } from 'antd';
 import { LeftOutlined, LoadingOutlined } from '@ant-design/icons';
+
 import { Link } from 'react-router-dom';
 
 import AssetDetailsCard from '../../components/AssetDetailsCard';
@@ -11,8 +13,8 @@ import MaintenanceModal from '../../components/MaintenanceModal';
 import MaintenanceRequestDisplay from '../../components/MaintenanceRequestDisplay';
 
 import { colors } from '../../styles/colors';
+
 import { AssetDetailProps } from './types';
-import { Typography } from 'antd';
 
 const AssetDetailsLayout: React.FC<AssetDetailProps> = ({
   localState,
@@ -24,6 +26,7 @@ const AssetDetailsLayout: React.FC<AssetDetailProps> = ({
     requestData,
     isModalOpen,
     assetDetails,
+    errorMessage,
     maintenanceRequested,
   } = localState;
 
@@ -32,7 +35,7 @@ const AssetDetailsLayout: React.FC<AssetDetailProps> = ({
     onMaintenanceRequest,
     handleSelectPriority,
     handleModalCancel,
-    setIsModalOpen,
+    onOpenModal,
     goBack,
   } = handlers;
 
@@ -74,7 +77,7 @@ const AssetDetailsLayout: React.FC<AssetDetailProps> = ({
                   <AssetAssetMessage asset={assetDetails} />
 
                   {assetDetails?.status !== 'inOperation' && (
-                    <PrimaryButton onClick={setIsModalOpen} />
+                    <PrimaryButton onClick={onOpenModal} />
                   )}
 
                   {assetDetails?.status === 'inOperation' && (
@@ -88,6 +91,7 @@ const AssetDetailsLayout: React.FC<AssetDetailProps> = ({
               asset={assetDetails}
               usersList={namesList}
               isModalOpen={isModalOpen}
+              errorMessage={errorMessage}
               handleSelectPriority={handleSelectPriority}
               handleSelectResponsible={handleSelectResponsible}
               handleModalCancel={handleModalCancel}

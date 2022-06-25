@@ -11,15 +11,16 @@ export interface LocalStateType {
   requestData: RequestData;
   isModalOpen: boolean;
   assetDetails: Asset;
+  errorMessage: string;
   maintenanceRequested: boolean;
 }
 
 export interface HandlersType {
-  handleSelectResponsible: () => void;
+  handleSelectResponsible: (v: string) => void;
+  handleSelectPriority: (v: string) => void;
   onMaintenanceRequest: () => void;
-  handleSelectPriority: () => void;
   handleModalCancel: () => void;
-  setIsModalOpen: () => void;
+  onOpenModal: () => void;
   goBack: () => string;
 }
 

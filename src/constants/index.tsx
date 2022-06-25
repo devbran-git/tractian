@@ -21,7 +21,7 @@ export const ASSET_MODELS = {
 
 export const STATUS_MESSAGE = {
   inDowntime: 'Este ativo precisa de manutenção!',
-  inAlert: 'Solicite manutenção para evitar a parada do ativo.',
+  inAlert: 'Solicite manutenção preventiva.',
   inOperation: 'Tudo certo com seu ativo.',
 };
 

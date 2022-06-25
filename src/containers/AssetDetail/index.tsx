@@ -2,17 +2,17 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { RequestData } from './types';
+import AssetDetailsLayout from './layout';
 
 import { useAssets } from '../../hooks/assets';
 import { useUsers } from '../../hooks/users';
-import AssetDetailsLayout from './layout';
+
+import { RequestData } from './types';
 
 const AssetDetail: React.FC = () => {
+  const { assetParam } = useParams();
   const { assetDetails, getAssetDetailsData } = useAssets();
   const { users } = useUsers();
-
-  const { assetParam } = useParams();
 
   const assetParams = assetParam?.split('-') as string[];
   const assetId = assetParams[2];
@@ -22,6 +22,7 @@ const AssetDetail: React.FC = () => {
   const [requestData, setRequestData] = useState({} as RequestData);
   const [priority, setPriority] = useState('');
   const [responsible, setResponsible] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [maintenanceRequested, setMaintenanceRequested] = useState(false);
@@ -34,6 +35,7 @@ const AssetDetail: React.FC = () => {
     return '/';
   };
 
+  const onOpenModal = () => setIsModalOpen(true);
   const handleModalCancel = () => setIsModalOpen(false);
 
   const handleSelectPriority = (value: string) => setPriority(value);
@@ -63,7 +65,8 @@ const AssetDetail: React.FC = () => {
       setRequestData(formattedRequestData);
       setMaintenanceRequested(true);
     } else {
-      alert('Selecione o nível de prioridade e o responsável pela manutenção.');
+      setErrorMessage('Selecione as opções dos campos acima.');
+      return;
     }
   };
 
@@ -81,7 +84,7 @@ const AssetDetail: React.FC = () => {
 
   useEffect(() => {
     getAssetDetailsData(assetId);
-  }, []);
+  }, [getAssetDetailsData, assetId]);
 
   useEffect(() => {
     onListUsersNames();
@@ -97,6 +100,7 @@ const AssetDetail: React.FC = () => {
     requestData,
     isModalOpen,
     assetDetails,
+    errorMessage,
     maintenanceRequested,
   };
   const handlers = {
@@ -104,7 +108,7 @@ const AssetDetail: React.FC = () => {
     onMaintenanceRequest,
     handleSelectPriority,
     handleModalCancel,
-    setIsModalOpen,
+    onOpenModal,
     goBack,
   };
 
