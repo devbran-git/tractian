@@ -30,7 +30,7 @@ const OnboardingLayout: React.FC<OnboardingProps> = ({
         backgroundSize: 'cover',
         padding: '72px 16px 0',
       }}>
-      <Image src={logoImg} />
+      <Image src={logoImg} preview={false} />
       <Text
         style={{ color: colors.white, fontWeight: 600, paddingTop: '12px' }}>
         Nunca foi tão fácil monitorar seus ativos
