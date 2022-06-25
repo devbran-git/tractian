@@ -1,4 +1,4 @@
-# Tractian
+# Tractian - https://apptractian.vercel.app/
 
 Projeto de teste seletivo, desenvolvido em ReactJS para dispositivos mobile.
 
@@ -21,3 +21,8 @@ Projeto de teste seletivo, desenvolvido em ReactJS para dispositivos mobile.
 - ver características e acompanhar estado do ativo;
 - solicitar manutenção de ativo;
 - monitorar estado geral e saúde dos ativos em painel único.
+
+## Para testar
+- acessar: https://apptractian.vercel.app/
+- em desktop: accese no modo de responsividade mobile;
+- navegar pelo app.
