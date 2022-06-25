@@ -1,0 +1,49 @@
+.card-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 4px;
+
+  background-color: var(--white);
+
+  text-decoration: none;
+}
+
+.asset-title {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.asset-image {
+  border-radius: 4px;
+
+  object-fit: cover;
+
+  margin-right: 12px;
+}
+
+.asset-label {
+  font-size: 12px;
+  font-weight: 500;
+
+  margin-right: 4px;
+}
+
+.asset-data {
+  font-size: 12px;
+}
+
+.access-details {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+
+  font-size: 10px;
+
+  color: var(--gray);
+}

@@ -1,0 +1,49 @@
+@import 'https://code.highcharts.com/css/highcharts.css';
+
+.status-chart-container,
+.healthscore-chart-container {
+  max-height: 400px;
+  margin: 16px 24px;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+}
+
+.highcharts-background {
+  fill: var(--white);
+}
+
+.highcharts-xaxis .highcharts-axis-line {
+  stroke-width: 2px;
+
+  stroke: var(--smoke);
+
+  height: 100px;
+}
+
+.highcharts-axis.highcharts-left-axis text {
+  fill: var(--gray);
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.highcharts-bottom-axis {
+  display: none;
+}
+
+.highcharts-color-0 {
+  fill: var(--alert);
+  stroke: var(--alert);
+}
+
+.highcharts-color-1 {
+  fill: var(--warning);
+  stroke: var(--warning);
+}
+
+.highcharts-color-2 {
+  fill: var(--success);
+  stroke: var(--success);
+}

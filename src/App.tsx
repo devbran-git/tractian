@@ -1,14 +1,15 @@
-import { Typography } from 'antd';
+import './styles/global.css';
+import AppRoutes from './routes/app.routes';
+import { AssetsProvider } from './hooks/assets';
+import { UsersContextProvider } from './hooks/users';
 
 const App: React.FC = () => {
-  const { Title } = Typography;
-
   return (
-    <>
-      <Title style={{ marginBottom: 0 }} level={4}>
-        Tractian Challenge
-      </Title>
-    </>
+    <AssetsProvider>
+      <UsersContextProvider>
+        <AppRoutes />;
+      </UsersContextProvider>
+    </AssetsProvider>
   );
 };
 
