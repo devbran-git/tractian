@@ -9,13 +9,11 @@ Projeto de teste seletivo, desenvolvido em ReactJS para dispositivos mobile.
 - Highcharts;
 - React Router DOM;
 - Axios.
-<br>
 
 ## Principais funcionalidades:
 - display de ativos, exibidos por unidade da empresa e status;
 - tela de detalhes do ativo e solicitação de manutenção;
 - gráficos que exibem valores e estado de ativos.
-<br>
 
 ## Objetivos de usuário atendidos:
 - ter visão geral de todos os ativos da empresa;
