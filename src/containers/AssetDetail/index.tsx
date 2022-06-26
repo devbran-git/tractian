@@ -11,7 +11,8 @@ import { RequestData } from './types';
 
 const AssetDetail: React.FC = () => {
   const { assetParam } = useParams();
-  const { assetDetails, getAssetDetailsData } = useAssets();
+  const { isLoading, assetDetails, setIsLoading, fetchAssetDetailsData } =
+    useAssets();
   const { users } = useUsers();
 
   const assetParams = assetParam?.split('-') as string[];
@@ -23,7 +24,6 @@ const AssetDetail: React.FC = () => {
   const [priority, setPriority] = useState('');
   const [responsible, setResponsible] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [maintenanceRequested, setMaintenanceRequested] = useState(false);
 
@@ -83,8 +83,8 @@ const AssetDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    getAssetDetailsData(assetId);
-  }, [getAssetDetailsData, assetId]);
+    fetchAssetDetailsData(assetId);
+  }, [assetId]);
 
   useEffect(() => {
     onListUsersNames();

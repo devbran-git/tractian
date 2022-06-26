@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import AssetMainCard from '../../components/AssetMainCard';
 
-import { LoadingOutlined } from '@ant-design/icons';
 import { MaintenanceProps } from './types';
 
 const MaintenanceLayout: React.FC<MaintenanceProps> = ({
@@ -22,18 +21,14 @@ const MaintenanceLayout: React.FC<MaintenanceProps> = ({
       selectedUnit={selectedUnit}
       setSelectedUnit={setSelectedUnit}>
       <div className='content'>
-        {isLoading ? (
-          <LoadingOutlined />
-        ) : (
-          assetsToShow?.map((asset, index) => (
-            <AssetMainCard
-              key={index}
-              asset={asset}
-              selectedUnit={selectedUnit}
-              paramPrefix='manutencao'
-            />
-          ))
-        )}
+        {assetsToShow?.map((asset, index) => (
+          <AssetMainCard
+            key={index}
+            asset={asset}
+            selectedUnit={selectedUnit}
+            paramPrefix='manutencao'
+          />
+        ))}
       </div>
 
       <Outlet />

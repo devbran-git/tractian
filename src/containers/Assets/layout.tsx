@@ -1,5 +1,3 @@
-import { LoadingOutlined } from '@ant-design/icons';
-
 import Layout from '../../components/Layout';
 import StatusChart from '../../components/StatusChart';
 import HealthScoreChart from '../../components/HealthScoreChart';
@@ -29,15 +27,11 @@ const AssetsLayout: React.FC<AssetsProps> = ({
       isLoading={isLoading}
       selectedUnit={selectedUnit}
       setSelectedUnit={setSelectedUnit}>
-      {isLoading ? (
-        <LoadingOutlined />
-      ) : (
-        <div style={{ backgroundColor: colors.smoke, paddingBottom: 60 }}>
-          <StatusChart assetsByStatus={assetsByStatus} />
+      <div style={{ backgroundColor: colors.smoke, paddingBottom: 60 }}>
+        <StatusChart assetsByStatus={assetsByStatus} />
 
-          <HealthScoreChart assetsByHealthScore={assetsByHealthScore} />
-        </div>
-      )}
+        <HealthScoreChart assetsByHealthScore={assetsByHealthScore} />
+      </div>
     </Layout>
   );
 };

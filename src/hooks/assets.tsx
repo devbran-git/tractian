@@ -16,8 +16,9 @@ interface AssetsContextProps {
   isLoading: boolean;
   assetDetails: Asset;
   selectedUnit: number;
+  setIsLoading: (b: boolean) => void;
   setSelectedUnit: (n: number) => void;
-  getAssetDetailsData: (t: string) => void;
+  fetchAssetDetailsData: (t: string) => void;
 }
 
 interface AssetsProviderProps {
@@ -30,38 +31,54 @@ const AssetsProvider = ({ children }: AssetsProviderProps) => {
   const [units, setUnits] = useState<Unit[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [selectedUnit, setSelectedUnit] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [assetDetails, setAssetDetails] = useState({} as Asset);
 
   const fetchUnitsData = async () => {
-    const unitResponse = await api.get('units');
+    try {
+      const unitResponse = await api.get('units');
 
-    setUnits(unitResponse?.data);
+      setUnits(unitResponse?.data);
+      console.log('fetchUnitsData');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const fetchAssetsData = async () => {
-    const assetsResponse: AxiosResponse<Asset[]> = await api.get('assets');
+    try {
+      const assetsResponse: AxiosResponse<Asset[]> = await api.get('assets');
+      const totalAssets = assetsResponse?.data;
 
-    const totalAssets = assetsResponse?.data;
-
-    setAssets(totalAssets);
+      setAssets(totalAssets);
+      console.log('fetchAssetsData');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const getAssetDetailsData = async (assetId: string) => {
-    const assetResponse = await api.get(`assets/${assetId}`);
-    const assetDetailsData = assetResponse.data;
+  const fetchAssetDetailsData = async (assetId: string) => {
+    try {
+      const assetResponse = await api.get(`assets/${assetId}`);
+      const assetDetailsData = assetResponse.data;
 
-    setAssetDetails(assetDetailsData);
+      setAssetDetails(assetDetailsData);
+      console.log('fetchAssetDetailsData');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchUnitsData();
     fetchAssetsData();
   }, []);
-
-  useEffect(() => {
-    if (assets.length > 0) setIsLoading(false);
-  }, [assets]);
 
   return (
     <AssetsContext.Provider
@@ -71,8 +88,9 @@ const AssetsProvider = ({ children }: AssetsProviderProps) => {
         isLoading,
         assetDetails,
         selectedUnit,
+        setIsLoading,
         setSelectedUnit,
-        getAssetDetailsData,
+        fetchAssetDetailsData,
       }}>
       {children}
     </AssetsContext.Provider>
