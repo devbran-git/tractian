@@ -39,7 +39,6 @@ const AssetsProvider = ({ children }: AssetsProviderProps) => {
       const unitResponse = await api.get('units');
 
       setUnits(unitResponse?.data);
-      console.log('fetchUnitsData');
     } catch (error) {
       console.log(error);
     } finally {
@@ -53,7 +52,6 @@ const AssetsProvider = ({ children }: AssetsProviderProps) => {
       const totalAssets = assetsResponse?.data;
 
       setAssets(totalAssets);
-      console.log('fetchAssetsData');
     } catch (error) {
       console.log(error);
     } finally {
@@ -67,7 +65,6 @@ const AssetsProvider = ({ children }: AssetsProviderProps) => {
       const assetDetailsData = assetResponse.data;
 
       setAssetDetails(assetDetailsData);
-      console.log('fetchAssetDetailsData');
     } catch (error) {
       console.log(error);
     } finally {
